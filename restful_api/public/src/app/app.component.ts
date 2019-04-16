@@ -9,10 +9,11 @@ import { HttpService } from './http.service';
 export class AppComponent implements OnInit{
   title = 'public';
   tasks = [];
+  taskDetails = {}
   constructor(private _httpService: HttpService){}
 
   ngOnInit(){
-    this.getTasksFromService()
+    //this.getTasksFromService()
   }
   getTasksFromService() {
     
@@ -21,5 +22,9 @@ export class AppComponent implements OnInit{
       console.log("Got our data!", data['data'])
       this.tasks = data['data']
     })
+  }
+  setTask(num){
+    this.taskDetails = this.tasks[num];
+    console.log("task: ", this.taskDetails)
   }
 }

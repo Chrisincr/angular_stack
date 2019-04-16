@@ -7,10 +7,21 @@
 </div>
 
 <div>
-  <ul>Tasks
-      <li *ngFor="let task of tasks" >{{task.title}}</li>
+  <button (click)="getTasksFromService()">Get Tasks</button>
+  <ul><h3>Tasks</h3>
+      <li *ngFor="let task of tasks; let i = index" >{{task.title}}<button (click)="setTask(i)">details</button></li>
   </ul>
   
+  <div><h3>Task Details</h3>
+    <table>
+      <tr><td></td>
+        <td>{{taskDetails.title}}</td>
+          <td></td>
+      </tr>
+      <tr><td>Description</td><td>Created</td><td>Completed</td></tr>
+      <tr><td>{{taskDetails.description}}</td><td>{{taskDetails.createdAt}}</td><td>{{taskDetails.completed}}</td></tr>
+    </table>
+  </div>
 </div>
 <h2>Here are some links to help you start: </h2>
 <ul>
