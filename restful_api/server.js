@@ -24,8 +24,8 @@ app.get('/tasks', async function(request,response){
     response.json({
         message: 'Success',
         data: task
+    })
 })
-
 app.get("/:num", async function(request,response){
     console.log('in get id')
     let task = await Task.findById(request.params.num,function(err,task){
@@ -65,4 +65,3 @@ app.post('/', async function(request,response){
 
 
 
-})
