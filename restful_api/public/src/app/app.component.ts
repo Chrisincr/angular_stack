@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
+import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-root',
@@ -9,11 +10,15 @@ import { HttpService } from './http.service';
 export class AppComponent implements OnInit{
   title = 'public';
   tasks = [];
-  taskDetails = {}
+  taskDetails = {};
+  newTask: any;
+  updateTask: any;
   constructor(private _httpService: HttpService){}
 
   ngOnInit(){
-    //this.getTasksFromService()
+    this.newTask = {title: "", description: "", completed: false}
+    this.updateTask = {_id: "",title: "", description: "", completed: false}
+    
   }
   getTasksFromService() {
     
@@ -26,5 +31,28 @@ export class AppComponent implements OnInit{
   setTask(num){
     this.taskDetails = this.tasks[num];
     console.log("task: ", this.taskDetails)
+  }
+
+  onSubmit(){
+    console.log('submited',this.newTask)
+    let observable = this._httpService.createTask(this.newTask);
+    observable.subscribe(data =>{
+      console.log("Got submited task back", data['data'])
+    })
+    
+
+    this.newTask = {title: "", description: "", completed: false}
+  }
+
+  onSetUpdate(index){
+    this.updateTask = this.tasks[index]
+    console.log("updatetask: ", this.updateTask)
+  }
+
+  onUpdate(){
+    let observable = this._httpService.updateTask(this.updateTask);
+    observable.subscribe(data =>{
+      console.log("Got Updated task back", data)
+    })
   }
 }

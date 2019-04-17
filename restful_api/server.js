@@ -27,7 +27,7 @@ app.get('/tasks', async function(request,response){
     })
 })
 app.get("/:num", async function(request,response){
-    console.log('in get id')
+    
     let task = await Task.findById(request.params.num,function(err,task){
         
         if(err){
@@ -46,13 +46,16 @@ app.get("/:num", async function(request,response){
 
 app.post('/', async function(request,response){
     task = new Task()
-    console.log("request.body:", request.body)
+    
     task.title = request.body.title
     task.description = request.body.description || "";
     task.completed = false;
     await task.save()
     .then(v =>{
-        response.redirect('/')
+        response.json({
+            message: 'Success',
+            data: v
+        })
     })
     .catch(e =>{
         response.json({
@@ -63,5 +66,32 @@ app.post('/', async function(request,response){
     
 })
 
-
+app.put('/:num', async function(request, response){
+    task = await Task.findById(request.params.num, async function(err,data){
+        if(err){
+            console.log("error updating ",num, 'is',err)
+        }else{
+            return data
+        }
+        
+    })
+    
+        task.title = request.body.title
+        task.description = request.body.description
+        task.completed = request.body.completed
+        await task.save()
+        .then(v =>{
+            
+            response.json({
+                message: 'Success',
+                data: v
+            })
+        })
+        .catch(e =>{
+            response.json({
+                message: 'Error',
+                data: e
+            })
+        })
+})
 
