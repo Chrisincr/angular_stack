@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms'
 export class AppComponent implements OnInit{
   title = 'public';
   tasks = [];
-  taskDetails = {};
+  selectedTask: any;
   newTask: any;
   updateTask: any;
   constructor(private _httpService: HttpService){}
@@ -28,9 +28,9 @@ export class AppComponent implements OnInit{
       this.tasks = data['data']
     })
   }
-  setTask(num){
-    this.taskDetails = this.tasks[num];
-    console.log("task: ", this.taskDetails)
+  setTask(task){
+    this.selectedTask = task;
+    console.log("task: ", this.selectedTask)
   }
 
   onSubmit(){

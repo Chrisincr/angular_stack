@@ -9,21 +9,12 @@
 <div>
   <button (click)="getTasksFromService()">Get Tasks</button>
   <ul><h3>Tasks</h3>
-      <li *ngFor="let task of tasks; let i = index" >{{task.title}} | <button (click)="setTask(i)">details</button> | <button (click)="onSetUpdate(i)">Update</button></li>
+      <li *ngFor="let task of tasks; let i = index" >{{task.title}} | <button (click)="setTask(task)">details</button> | <button (click)="onSetUpdate(task)">Update</button></li>
   </ul>
   
-  <div><h3>Task Details</h3>
-    <table>
-      <tr><td></td>
-        <td>{{taskDetails.title}}</td>
-          <td></td>
-      </tr>
-      <tr><td>Description</td><td>Created</td><td>Completed</td></tr>
-      <tr><td>{{taskDetails.description}}</td><td>{{taskDetails.createdAt}}</td><td>{{taskDetails.completed}}</td></tr>
-    </table>
-  </div>
+  
 </div>
-
+<app-task *ngIf="selectedTask" [taskDetails]='selectedTask'></app-task>
 <form >
   <p>New Task Form</p>
   <p>{{ newTask | json }}</p>
